@@ -180,7 +180,7 @@ class Physics:
         return first * second
 
     @staticmethod
-    def alpha_decay(Z:int,A:int) -> (int,int):
+    def alpha_decay(Z:int,A:int):
         """
         атомы какого вещества получатся после альфа распад
 
@@ -192,7 +192,7 @@ class Physics:
         # return f"{periodic_table[Z-2]}, Z={Z-2}, A={A-4} + {periodic_table[2]}, Z=2, A=4)"
 
     @staticmethod
-    def betta_decay(Z:int,A:int) -> (int,int):
+    def betta_decay(Z:int,A:int):
         """
         атомы какого вещества получатся после бетта распад
 
@@ -299,6 +299,18 @@ class Physics:
         """
         N = N0/(2**(t/T))
         return N,N0-N
+
+    @staticmethod
+    def Ohm_law(I:float=None,R:float=None,U:float=None):
+        """
+        нахождение неизвестной по закону ома
+
+        :param I: сила тока
+        :param R: сопротевление
+        :param U: напряжение
+        :return: неизвестная 
+        """
+        return Physics.__first_multiply_second_equal_third(I,R,U)
 
     @staticmethod
     def force_of_gravity(r,M,m=1):

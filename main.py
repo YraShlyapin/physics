@@ -21,4 +21,4 @@ def mark(all:int,true_answer:int):
     return 2
 
 
-print(Physics.alpha_decay(92,238))
+print(Physics.amperage(i=2,u=110))
