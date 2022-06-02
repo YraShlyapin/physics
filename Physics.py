@@ -148,6 +148,8 @@ periodic_table = [
 
 
 class Physics:
+
+    # TODO дополнительные функции
     @staticmethod
     def serial_or_parallel_connection(is_serial: bool = True, *a):
         error = 0
@@ -185,6 +187,37 @@ class Physics:
             return third / first
         return first * second
 
+    # TODO Ядерная физика
+    @staticmethod
+    def einstein(m: float = None, E: float = None):
+        """
+        формула Эйнштейн
+
+        :param m: масса
+        :param E: энергия
+        :return: энергия если известна масса, или масса если известна энергия
+        """
+        if m:
+            return m * (c**2)
+        return E / (c**2)
+
+    @staticmethod
+    def binding_energy(my, Z, A):
+        """
+        определение энергии связи и удельной энергии связи
+
+        :param my: масса ядра
+        :param Z: зарядовое число
+        :param A: массовое число
+        :return: возвращает энергию связи и удельную энергию связи в Дж и в МэВ
+        """
+        delm = round((Z * mp + (A - Z) * mn) - my, 5)
+        Es1 = round(931.5 * delm, 5)
+        Es1A = round(Es1 / A, 5)
+        Es2 = Physics.einstein(m=delm * one_kg_of_aem)
+        Es2A = Es2 / A
+        return delm, Es1, Es1A, Es2, Es2A
+
     @staticmethod
     def alpha_decay(Z: int, A: int):
         """
@@ -209,18 +242,19 @@ class Physics:
         return (periodic_table[Z + 1], Z + 1, A), ("e⁻", -1, 0)
 
     @staticmethod
-    def einstein(m: float = None, E: float = None):
+    def half_life(N0: int, t: float, T: float):
         """
-        формула Эйнштейн
+        нахождение количество частиц, которые остались и которые распались
 
-        :param m: масса
-        :param E: энергия
-        :return: энергия если известна масса, или масса если известна энергия
+        :param N0: начальное количество атомов вещества
+        :param t: время, через которое мы проверяем количество атомов
+        :param T: период полураспада
+        :return: количество частиц, которые остались, количество частиц, которые распались
         """
-        if m:
-            return m * (c**2)
-        return E / (c**2)
+        N = N0 / (2 ** (t / T))
+        return N, N0 - N
 
+    # TODO Молекулярная физика
     @staticmethod
     def burn(Q: int = None, q: int = None, m: int = None):
         """
@@ -276,48 +310,7 @@ class Physics:
             return Q / (m * c)
         return Q / (c * delT)
 
-    @staticmethod
-    def binding_energy(my, Z, A):
-        """
-        определение энергии связи и удельной энергии связи
-
-        :param my: масса ядра
-        :param Z: зарядовое число
-        :param A: массовое число
-        :return: возвращает энергию связи и удельную энергию связи в Дж и в МэВ
-        """
-        delm = round((Z * mp + (A - Z) * mn) - my, 5)
-        Es1 = round(931.5 * delm, 5)
-        Es1A = round(Es1 / A, 5)
-        Es2 = Physics.einstein(m=delm * one_kg_of_aem)
-        Es2A = Es2 / A
-        return delm, Es1, Es1A, Es2, Es2A
-
-    @staticmethod
-    def half_life(N0: int, t: float, T: float):
-        """
-        нахождение количество частиц, которые остались и которые распались
-
-        :param N0: начальное количество атомов вещества
-        :param t: время, через которое мы проверяем количество атомов
-        :param T: период полураспада
-        :return: количество частиц, которые остались, количество частиц, которые распались
-        """
-        N = N0 / (2 ** (t / T))
-        return N, N0 - N
-
-    @staticmethod
-    def Ohm_law(I: float = None, R: float = None, U: float = None):
-        """
-        нахождение неизвестной по закону ома
-
-        :param I: сила тока
-        :param R: сопротевление
-        :param U: напряжение
-        :return: неизвестная
-        """
-        return Physics.__first_multiply_second_equal_third(I, R, U)
-
+    # TODO Динамика
     @staticmethod
     def force_of_gravity(r, M, m=1):
         """
@@ -341,22 +334,42 @@ class Physics:
         """
         return (r * g) ** 0.5
 
+    # TODO силы, мощность, кинетическая и потенциальная энергия
     @staticmethod
-    def centripetal_acceleration(u=None, r=None, a=None):
-        if not u:
+    def work_force(F, S, alpha=0):
+        """
+        нахождение работы силы, действующей под определенным углом
+
+        :param F: сила, действующая на тело
+        :param S: путь, пройденный телом
+        :param alpha: угол действия силы
+        :return: работу силы
+        """
+        return F * S * cosinus(alpha)
+
+    # TODO Равномерное движенеи по окружности
+    @staticmethod
+    def centripetal_acceleration(U=None, r=None, a=None):
+        """
+        нахождение центростремительного ускорения
+
+        :param U: скорость тела
+        :param r: радиус окружности
+        :param a: ускорение
+        :return: неизвестную по формуле центростремительного ускорения
+        """
+        if not U:
             return (a * r) ** 0.5
         if not r:
-            return (u**2) / a
-        return (u**2) / r
+            return (U**2) / a
+        return (U**2) / r
 
-    @staticmethod
-    def capacitance_capacitor(c: int = None, q: int = None, U: int = None):
-        return Physics.__first_multiply_second_equal_third(c, U, q)
-
+    # TODO Оптика
     @staticmethod
     def optical_power_of_lens(D: int = None, F: int = None):
         return Physics.__first_multiply_second_equal_third(D, F, 1)
 
+    # TODO Колебания
     @staticmethod
     def frequency_and_period(T: int = None, v: int = None):
         return Physics.__first_multiply_second_equal_third(T, v, 1)
@@ -373,6 +386,19 @@ class Physics:
     def mathematical_pendulum_period(l, g=g_earth):
         return 2 * pi * ((l / g) ** 0.5)
 
+    # TODO Электричество
     @staticmethod
-    def work_force(F, S, alpha=0):
-        return F * S * cosinus(alpha)
+    def Ohm_law(I: float = None, R: float = None, U: float = None):
+        """
+        нахождение неизвестной по закону ома
+
+        :param I: сила тока
+        :param R: сопротевление
+        :param U: напряжение
+        :return: неизвестная
+        """
+        return Physics.__first_multiply_second_equal_third(I, R, U)
+
+    @staticmethod
+    def capacitance_capacitor(c: int = None, q: int = None, U: int = None):
+        return Physics.__first_multiply_second_equal_third(c, U, q)
