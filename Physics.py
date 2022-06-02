@@ -1,3 +1,6 @@
+from trigonometria import cosinus
+
+
 G = 6.67e-11
 mp = 1.00728
 mn = 1.00866
@@ -10,7 +13,7 @@ g_earth = 9.8
 M_earth = 5.97e24
 R_earth = 6378e3
 E0 = 8.854e-12
-k = 9e9
+K = 9e9
 
 periodic_table = [
     "n",
@@ -174,7 +177,7 @@ class Physics:
         first: int = None, second: int = None, third: int = None
     ):
         """
-        формулы типа: a=c/b
+        формулы типа: a*b=c
         """
         if not first:
             return third / second
@@ -293,12 +296,12 @@ class Physics:
     @staticmethod
     def half_life(N0: int, t: float, T: float):
         """
-        TODO доделать
+        нахождение количество частиц, которые остались и которые распались
 
         :param N0: начальное количество атомов вещества
         :param t: время, через которое мы проверяем количество атомов
         :param T: период полураспада
-        :return:
+        :return: количество частиц, которые остались, количество частиц, которые распались
         """
         N = N0 / (2 ** (t / T))
         return N, N0 - N
@@ -317,10 +320,25 @@ class Physics:
 
     @staticmethod
     def force_of_gravity(r, M, m=1):
+        """
+        нахождение силы притяжения
+
+        :param r: расстояние от одного тела до другого
+        :param M: масса первого
+        :param m: масса второго
+        :return: силу притяжения
+        """
         return (G * M * m) / r**2
 
     @staticmethod
-    def first_space_velocity(r, g=9.8):
+    def first_space_velocity(r, g=g_earth):
+        """
+        нахождение первой космической скорости
+
+        :param r: радиус планеты
+        :param g: ускорение свободного падения
+        :return: первую космическую скорость
+        """
         return (r * g) ** 0.5
 
     @staticmethod
@@ -340,13 +358,21 @@ class Physics:
         return Physics.__first_multiply_second_equal_third(D, F, 1)
 
     @staticmethod
-    def frequency_and_period(
-        T: int = None,
-        v: int = None,
-        is_frequency: bool = False,
-        t: int = None,
-        N: int = None,
-    ):
-        if is_frequency:
-            return Physics.__first_multiply_second_equal_third(T, v, 1)
-        return Physics.__first_multiply_second_equal_third(T, N, t)
+    def frequency_and_period(T: int = None, v: int = None):
+        return Physics.__first_multiply_second_equal_third(T, v, 1)
+
+    @staticmethod
+    def period_time_count(t: float, N: int) -> float:
+        return t / N
+
+    @staticmethod
+    def spring_pendulum_period(m, k):
+        return 2 * pi * ((m / k) ** 0.5)
+
+    @staticmethod
+    def mathematical_pendulum_period(l, g=g_earth):
+        return 2 * pi * ((l / g) ** 0.5)
+
+    @staticmethod
+    def work_force(F, S, alpha=0):
+        return F * S * cosinus(alpha)
