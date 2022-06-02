@@ -24,4 +24,4 @@ def mark(all: int, true_answer: int):
     return 2
 
 
-print(Physics.work_force(100, 50))
+print(Physics.force_of_gravity(10, 10))

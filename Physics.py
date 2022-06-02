@@ -336,6 +336,54 @@ class Physics:
 
     # TODO силы, мощность, кинетическая и потенциальная энергия
     @staticmethod
+    def force_of_gravity(m: float = None, g: float = None, F: float = None):
+        """
+        нахождение неизвестной по формуле силы тяжести
+
+        :param m: масса тела
+        :param g: ускорение свободного падения
+        :param F: сила тяжести
+        :return: неизвестную по формуле силы тяжести
+        """
+        return Physics.__first_multiply_second_equal_third(m, g, F)
+
+    @staticmethod
+    def elastic_force(k: float = None, x: float = None, F: float = None):
+        """
+        нахождение неизвестной по формуле силы упругости
+
+        :param k: жесткость пружины
+        :param x: удлиннение подвеса
+        :param F: сила упругости
+        :return: неизвестную по формуле силы упругости
+        """
+        return Physics.__first_multiply_second_equal_third(k, x, F)
+
+    @staticmethod
+    def frictional_force(mu: float = None, N: float = None, F: float = None):
+        """
+        нахождение неизвестной по формуле силы трения
+
+        :param mu: коэффициент силы трения
+        :param N: сила реакции опоры
+        :param F: сила трения
+        :return: неизвестную по формуле силы трения
+        """
+        return Physics.__first_multiply_second_equal_third(mu, N, F)
+
+    @staticmethod
+    def electric_force(E: float = None, q: float = None, F: float = None):
+        """
+        нахождение неизвестной по формуле электрической силы
+
+        :param E: напряженность
+        :param q: электрический заряд
+        :param F: электрическая сила
+        :return: неизвестную по формуле электрической силы
+        """
+        return Physics.__first_multiply_second_equal_third(E, q, F)
+
+    @staticmethod
     def work_force(F, S, alpha=0):
         """
         нахождение работы силы, действующей под определенным углом
@@ -366,12 +414,19 @@ class Physics:
 
     # TODO Оптика
     @staticmethod
-    def optical_power_of_lens(D: int = None, F: int = None):
+    def optical_power_of_lens(F: int = None, D: int = None):
+        """
+        нахождение оптической силы линзы
+
+        :param D: оптическая сила линзы
+        :param F: фокусное расстояние линзы
+        :return: неизвестную по формуле оптической силы
+        """
         return Physics.__first_multiply_second_equal_third(D, F, 1)
 
     # TODO Колебания
     @staticmethod
-    def frequency_and_period(T: int = None, v: int = None):
+    def frequency_and_period(T: float = None, v: float = None):
         return Physics.__first_multiply_second_equal_third(T, v, 1)
 
     @staticmethod
@@ -395,10 +450,18 @@ class Physics:
         :param I: сила тока
         :param R: сопротевление
         :param U: напряжение
-        :return: неизвестная
+        :return: неизвестную по закону ома
         """
         return Physics.__first_multiply_second_equal_third(I, R, U)
 
     @staticmethod
-    def capacitance_capacitor(c: int = None, q: int = None, U: int = None):
+    def capacitance_capacitor(c: float = None, q: float = None, U: float = None):
+        """
+        нахождение электроемкости конденсатора
+
+        :param c: электроемкость конденсатора
+        :param q: заряд
+        :param U: напряжение
+        :return: неизвестную по формуле электрического конденсатора
+        """
         return Physics.__first_multiply_second_equal_third(c, U, q)
