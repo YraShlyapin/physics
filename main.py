@@ -25,4 +25,4 @@ def mark(all: int, true_answer: int):
     return 2
 
 
-print(ph.ampere_force(40,0.06,0.2,None,0.48))
+print(ph.ampere_force(40, 0.06, 0.2, None, 0.48))
