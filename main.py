@@ -25,4 +25,4 @@ def mark(all: int, true_answer: int):
     return 2
 
 
-print(ph.inner_power(0.2, 0.004, 20))
+print(ph.work_force(100, 50, None, 2500))

@@ -14,3 +14,8 @@ class sinus:
 class arcsinus:
     def __new__(cls, sin):
         return round(math.degrees(math.asin(sin)))
+
+
+class arcosinus:
+    def __new__(cls, sin):
+        return round(math.degrees(math.acos(sin)))

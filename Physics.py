@@ -1,4 +1,4 @@
-from trigonometria import cosinus, sinus, arcsinus
+from trigonometria import cosinus, sinus, arcsinus, arcosinus
 
 
 G = 6.67e-11
@@ -226,6 +226,24 @@ class Physics:
         if not alpha:
             return arcsinus(fourth / (first * second * third))
         return fourth / (first * second * sinus(alpha))
+
+    @staticmethod
+    def __first_multiply_second_multiply_cos_equal_third(
+        first: float = None,
+        second: float = None,
+        alpha: float = None,
+        third: float = None,
+    ):
+        """
+        формулы типа: a*b*cos(alpha)=d
+        """
+        if not third:
+            return first * second * cosinus(alpha)
+        if not first:
+            return third / (second * cosinus(alpha))
+        if not second:
+            return third / (first * cosinus(alpha))
+        return arcosinus(third / (first * second))
 
     # TODO Ядерная физика
     @staticmethod
@@ -529,7 +547,7 @@ class Physics:
         return Physics.__first_multiply_second_multiply_third_equal_fourth(m, g, h, E)
 
     @staticmethod
-    def work_force(F: float = None, S: float = None, alpha: float = 0):
+    def work_force(F: float = None, S: float = None, alpha: float = 0, A: float = None):
         """
         нахождение работы силы, действующей под определенным углом
 
@@ -538,7 +556,9 @@ class Physics:
         :param alpha: угол действия силы
         :return: работу силы
         """
-        return F * S * cosinus(alpha)
+        return Physics.__first_multiply_second_multiply_cos_equal_third(
+            F, S, alpha, A
+        )  #  F * S * cosinus(alpha)
 
     # TODO Равномерное движенеи по окружности
     @staticmethod
@@ -610,3 +630,18 @@ class Physics:
         :return: неизвестную по формуле электрического конденсатора
         """
         return Physics.__first_multiply_second_equal_third(c, U, q)
+
+    @staticmethod
+    def magnetic_flux(
+        B: float = None, S: float = None, alpha: float = 0, f: float = None
+    ):
+        """
+        TODO доделать
+        нахождение неизвестной по формуле магнитного потока
+
+        :param B: сила, действующая на тело
+        :param S: путь
+        :param alpha: угол действия силы
+        :return: работу силы
+        """
+        return Physics.__first_multiply_second_multiply_cos_equal_third(B, S, alpha, f)
