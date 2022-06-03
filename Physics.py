@@ -14,6 +14,7 @@ M_earth = 5.97e24
 R_earth = 6378e3
 E0 = 8.854e-12
 K = 9e9
+R = 8.314
 
 periodic_table = [
     "n",
@@ -345,9 +346,44 @@ class Physics:
             c, m, delT, Q
         )
 
+    @staticmethod
+    def fluid_pressure(
+        ro: float = None, g: float = None, h: float = None, p: float = None
+    ):
+        """
+        нахождение неизвестной по формуле давления жидкости
+
+        :param ro: плотность жидкости
+        :param g: ускорение свободного падения
+        :param h: высота столба
+        :param p: давления жидкости
+        :return: неизвестная по формуле давления жидкости
+        """
+        return Physics.__first_multiply_second_multiply_third_equal_fourth(ro, g, h, p)
+
+    @staticmethod
+    def fluid_pressure(S: float = None, p: float = None, F: float = None):
+        """
+        нахождение неизвестной по формуле давления твердых тел
+
+        :param S: площадь соприкосновения тела и поверхности
+        :param p: давления твердого тела
+        :param F: сила, действующая на поверхность
+        :return: неизвестная по формуле давления твердых тел
+        """
+        return Physics.__first_multiply_second_equal_third(p, S, F)
+
+    @staticmethod
+    def mass(ro: float = None, V: float = None, m: float = None):
+        return Physics.__first_multiply_second_equal_third(ro, V, m)
+
+    @staticmethod
+    def inner_power(m: float = None, M: float = None, T: float = None):
+        return 1.5 * (m / M) * R * T
+
     # TODO Динамика
     @staticmethod
-    def force_of_gravity(r, M, m=1):
+    def gravitation(r, M, m=1):
         """
         нахождение силы притяжения
 
@@ -493,7 +529,7 @@ class Physics:
         return Physics.__first_multiply_second_multiply_third_equal_fourth(m, g, h, E)
 
     @staticmethod
-    def work_force(F, S, alpha=0):
+    def work_force(F: float = None, S: float = None, alpha: float = 0):
         """
         нахождение работы силы, действующей под определенным углом
 
@@ -539,8 +575,8 @@ class Physics:
         return Physics.__first_multiply_second_equal_third(T, v, 1)
 
     @staticmethod
-    def period_time_count(t: float, N: int) -> float:
-        return t / N
+    def period_time_count(t: float = None, N: int = None, T: float = None):
+        return Physics.__first_multiply_second_equal_third(T, N, t)
 
     @staticmethod
     def spring_pendulum_period(m, k):
