@@ -1,4 +1,4 @@
-from trigonometria import cosinus
+from trigonometria import cosinus, sinus, arcsinus
 
 
 G = 6.67e-11
@@ -176,7 +176,7 @@ class Physics:
 
     @staticmethod
     def __first_multiply_second_equal_third(
-        first: int = None, second: int = None, third: int = None
+        first: float = None, second: float = None, third: float = None
     ):
         """
         формулы типа: a*b=c
@@ -186,6 +186,38 @@ class Physics:
         if not second:
             return third / first
         return first * second
+
+    @staticmethod
+    def __first_multiply_second_multiply_third_equal_fourth(
+        first: float = None, second: float = None, third: float = None, fourth: float = None
+    ):
+        """
+        формулы типа: a*b*c=d
+        """
+        if not fourth:
+            return first * second * third
+        if not first:
+            return fourth / (second * third)
+        if not second:
+            return fourth / (first * third)
+        return fourth / (first * second)
+
+    @staticmethod
+    def __first_multiply_second_multiply_third_multiply_sin_equal_fourth(
+        first: float = None, second: float = None, third: float = None, alpha: float = None, fourth: float = None
+    ):
+        """
+        формулы типа: a*b*c*sin(alpha)=d
+        """
+        if not fourth:
+            return first * second * third * sinus(alpha)
+        if not first:
+            return fourth / (second * third * sinus(alpha))
+        if not second:
+            return fourth / (first * third * sinus(alpha))
+        if not alpha:
+            return arcsinus(fourth / (first * second * third ))
+        return fourth / (first * second * sinus(alpha))        
 
     # TODO Ядерная физика
     @staticmethod
@@ -256,7 +288,7 @@ class Physics:
 
     # TODO Молекулярная физика
     @staticmethod
-    def burn(Q: int = None, q: int = None, m: int = None):
+    def burn(Q: float = None, q: float = None, m: float = None):
         """
         нахождение неизвестной при сгорании
 
@@ -302,13 +334,7 @@ class Physics:
         :param delT: изменение температуры
         :return: неизвестная при нагревании
         """
-        if not Q:
-            return c * m * delT
-        if not c:
-            return Q / (m * delT)
-        if not delT:
-            return Q / (m * c)
-        return Q / (c * delT)
+        return Physics.__first_multiply_second_multiply_third_equal_fourth(c,m,delT,Q)
 
     # TODO Динамика
     @staticmethod
@@ -372,6 +398,47 @@ class Physics:
         return Physics.__first_multiply_second_equal_third(mu, N, F)
 
     @staticmethod
+    def archimedes_force(ro: float = None, g: float = None, V: float = None, F: float = None):
+        """
+        нахождение неизвестной по формуле силы архимеда
+
+        :param ro: плотность жидкости
+        :param g: ускорение свободного падения
+        :param V: объем погруженной части тела
+        :param F: сила архимеда
+        :return: неизвестную по формуле силы архимеда
+        """
+        return Physics.__first_multiply_second_multiply_third_equal_fourth(ro,g,V,F)
+
+    @staticmethod
+    def ampere_force(I: float = None, B: float = None, L: float = None, alpha: float = None, F: float = None):
+        """
+        нахождение неизвестной по формуле силы ампера
+
+        :param I: сила тока
+        :param B: Сила магнитной индукции(Тс)
+        :param L: длинна проводника
+        :param alpha: угол между I и B
+        :param F: сила ампера
+        :return: неизвестную по формуле силы ампера
+        """
+        return Physics.__first_multiply_second_multiply_third_multiply_sin_equal_fourth(I,B,L,alpha,F)
+
+    @staticmethod
+    def lorentz_force(q: float = None, B: float = None, V: float = None, alpha: float = None, F: float = None):
+        """
+        нахождение неизвестной по формуле силы лоренца
+
+        :param q: заряд частицы
+        :param B: Сила магнитной индукции(Тс)
+        :param V: скорость частицы
+        :param alpha: угол между V и B
+        :param F: сила лоренца
+        :return: неизвестную по формуле силы лоренца
+        """
+        return Physics.__first_multiply_second_multiply_third_multiply_sin_equal_fourth(q,B,V,alpha,F)
+
+    @staticmethod
     def electric_force(E: float = None, q: float = None, F: float = None):
         """
         нахождение неизвестной по формуле электрической силы
@@ -382,6 +449,19 @@ class Physics:
         :return: неизвестную по формуле электрической силы
         """
         return Physics.__first_multiply_second_equal_third(E, q, F)
+
+    @staticmethod
+    def potential_energy_height(m: float = None, g: float = None, h: float = None, E: float = None):
+        """
+        нахождение неизвестной по формуле потенциальной энергии тела, поднятого над землей
+
+        :param m: масса тела
+        :param g: ускорение свободного падения
+        :param h: высота, на которую поднято тело
+        :param E: потенциальной энергии тела, поднятого над землей
+        :return: неизвестную по формуле потенциальной энергии тела, поднятого над землей
+        """
+        return Physics.__first_multiply_second_multiply_third_equal_fourth(m,g,h,E)
 
     @staticmethod
     def work_force(F, S, alpha=0):

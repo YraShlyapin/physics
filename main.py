@@ -1,5 +1,6 @@
-from Physics import Physics
+from Physics import Physics as ph
 from number import number
+import trigonometria
 
 
 def factorial(i):
@@ -24,4 +25,4 @@ def mark(all: int, true_answer: int):
     return 2
 
 
-print(Physics.force_of_gravity(10, 10))
+print(ph.ampere_force(40,0.06,0.2,None,0.48))
