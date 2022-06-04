@@ -25,4 +25,4 @@ def mark(all: int, true_answer: int):
     return 2
 
 
-print(ph.work_force(100, 50, None, 2500))
+print(ph.coordinate_body_acceleration(0,0,2,2))

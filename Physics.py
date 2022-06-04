@@ -232,7 +232,7 @@ class Physics:
         first: float = None,
         second: float = None,
         alpha: float = None,
-        third: float = None,
+        third: float = None
     ):
         """
         формулы типа: a*b*cos(alpha)=d
@@ -244,6 +244,17 @@ class Physics:
         if not second:
             return third / (first * cosinus(alpha))
         return arcosinus(third / (first * second))
+
+    @staticmethod
+    def __first_multiply_second_in_squared_divide_by_two_equal_third(first: float = None, second: float = None, third: float = None):
+        """
+
+        """
+        if not third:
+            return first*(second**2)/2
+        if not first:
+            return 2*third/(second**2)
+        return (2*third/first)**0.5
 
     # TODO Ядерная физика
     @staticmethod
@@ -393,11 +404,36 @@ class Physics:
 
     @staticmethod
     def mass(ro: float = None, V: float = None, m: float = None):
+        """
+        нахождение неизвестной по формуле массы тела
+
+        :param ro: плотность тела
+        :param V: объем тела
+        :param m: масса тела
+        :return: неизвестная по формуле массы тела
+        """
         return Physics.__first_multiply_second_equal_third(ro, V, m)
 
     @staticmethod
     def inner_power(m: float = None, M: float = None, T: float = None):
-        return 1.5 * (m / M) * R * T
+        return (3/2) * (m / M) * R * T
+
+    # TODO Кинематика
+    @staticmethod
+    def coordinate_body(x0: float = None,Vx: float = None, t: float = None, S: float = None):
+        return x0+Vx*t
+
+    @staticmethod
+    def path_traveled_by_body(Vx: float = None, t: float = None, S: float = None):
+        return Vx*t
+
+    @staticmethod
+    def coordinate_body_acceleration(x0: float = None,V0: float = None, t: float = None, ax: float = None, S: float = None):
+        return x0+V0*t+(ax*(t**2))/2
+
+    @staticmethod
+    def path_traveled_by_body_acceleration(V0: float = None, t: float = None, ax: float = None, S: float = None):
+        return V0*t+(ax*(t**2))/2
 
     # TODO Динамика
     @staticmethod
@@ -545,6 +581,30 @@ class Physics:
         :return: неизвестную по формуле потенциальной энергии тела, поднятого над землей
         """
         return Physics.__first_multiply_second_multiply_third_equal_fourth(m, g, h, E)
+    
+    @staticmethod
+    def kinetic_energy(m: float = None, V: float = None, E: float = None):
+        """
+        нахождение неизвестной по формуле кинетической энергии
+
+        :param m: масса тела
+        :param V: скорость тела
+        :param E: кинетическая энергия
+        :return: неизвестную по формуле кинетической энергии
+        """
+        return Physics.__first_multiply_second_in_squared_divide_by_two_equal_third(m,V,E)
+
+    @staticmethod
+    def potential_energy_elastically_body(k: float = None, x: float = None, E: float = None):
+        """
+        нахождение неизвестной по формуле потенциальной энергии упругодеформированного тела
+
+        :param k: жесткость пружины
+        :param x: удлиннение подвеса
+        :param E: потенциальная энергия упругодеформированного тела
+        :return: неизвестную по формуле потенциальной энергии упругодеформированного тела
+        """
+        return Physics.__first_multiply_second_in_squared_divide_by_two_equal_third(k,x,E)
 
     @staticmethod
     def work_force(F: float = None, S: float = None, alpha: float = 0, A: float = None):
@@ -554,11 +614,11 @@ class Physics:
         :param F: сила, действующая на тело
         :param S: путь, пройденный телом
         :param alpha: угол действия силы
-        :return: работу силы
+        :return: неизвестную по формуле работы силы
         """
         return Physics.__first_multiply_second_multiply_cos_equal_third(
             F, S, alpha, A
-        )  #  F * S * cosinus(alpha)
+        )
 
     # TODO Равномерное движенеи по окружности
     @staticmethod
