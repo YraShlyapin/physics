@@ -25,4 +25,4 @@ def mark(all: int, true_answer: int):
     return 2
 
 
-print(ph.coordinate_body_acceleration(0,0,2,2))
+print(ph.gravitation(6371000, 5.972e24))

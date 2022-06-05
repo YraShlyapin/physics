@@ -9,7 +9,7 @@ c = 3e8
 pi = 3.1415926
 q_module = 1.60219e-19
 Na = 6.02e23
-g_earth = 9.8
+g_earth = 9.81365
 M_earth = 5.97e24
 R_earth = 6378e3
 E0 = 8.854e-12
@@ -232,7 +232,7 @@ class Physics:
         first: float = None,
         second: float = None,
         alpha: float = None,
-        third: float = None
+        third: float = None,
     ):
         """
         формулы типа: a*b*cos(alpha)=d
@@ -246,15 +246,17 @@ class Physics:
         return arcosinus(third / (first * second))
 
     @staticmethod
-    def __first_multiply_second_in_squared_divide_by_two_equal_third(first: float = None, second: float = None, third: float = None):
+    def __first_multiply_second_in_squared_divide_by_two_equal_third(
+        first: float = None, second: float = None, third: float = None
+    ):
         """
-
+        формулы типа: (a*(b^2))/2=c
         """
         if not third:
-            return first*(second**2)/2
+            return first * (second**2) / 2
         if not first:
-            return 2*third/(second**2)
-        return (2*third/first)**0.5
+            return 2 * third / (second**2)
+        return (2 * third / first) ** 0.5
 
     # TODO Ядерная физика
     @staticmethod
@@ -416,24 +418,34 @@ class Physics:
 
     @staticmethod
     def inner_power(m: float = None, M: float = None, T: float = None):
-        return (3/2) * (m / M) * R * T
+        return (3 / 2) * (m / M) * R * T
 
     # TODO Кинематика
     @staticmethod
-    def coordinate_body(x0: float = None,Vx: float = None, t: float = None, S: float = None):
-        return x0+Vx*t
+    def coordinate_body(
+        x0: float = None, Vx: float = None, t: float = None, S: float = None
+    ):
+        return x0 + Vx * t
 
     @staticmethod
     def path_traveled_by_body(Vx: float = None, t: float = None, S: float = None):
-        return Vx*t
+        return Vx * t
 
     @staticmethod
-    def coordinate_body_acceleration(x0: float = None,V0: float = None, t: float = None, ax: float = None, S: float = None):
-        return x0+V0*t+(ax*(t**2))/2
+    def coordinate_body_acceleration(
+        x0: float = None,
+        V0: float = None,
+        t: float = None,
+        ax: float = None,
+        S: float = None,
+    ):
+        return x0 + V0 * t + (ax * (t**2)) / 2
 
     @staticmethod
-    def path_traveled_by_body_acceleration(V0: float = None, t: float = None, ax: float = None, S: float = None):
-        return V0*t+(ax*(t**2))/2
+    def path_traveled_by_body_acceleration(
+        V0: float = None, t: float = None, ax: float = None, S: float = None
+    ):
+        return V0 * t + (ax * (t**2)) / 2
 
     # TODO Динамика
     @staticmethod
@@ -446,7 +458,7 @@ class Physics:
         :param m: масса второго
         :return: силу притяжения
         """
-        return (G * M * m) / r**2
+        return (G * M * m) / (r**2)
 
     @staticmethod
     def first_space_velocity(r, g=g_earth):
@@ -581,7 +593,7 @@ class Physics:
         :return: неизвестную по формуле потенциальной энергии тела, поднятого над землей
         """
         return Physics.__first_multiply_second_multiply_third_equal_fourth(m, g, h, E)
-    
+
     @staticmethod
     def kinetic_energy(m: float = None, V: float = None, E: float = None):
         """
@@ -592,10 +604,14 @@ class Physics:
         :param E: кинетическая энергия
         :return: неизвестную по формуле кинетической энергии
         """
-        return Physics.__first_multiply_second_in_squared_divide_by_two_equal_third(m,V,E)
+        return Physics.__first_multiply_second_in_squared_divide_by_two_equal_third(
+            m, V, E
+        )
 
     @staticmethod
-    def potential_energy_elastically_body(k: float = None, x: float = None, E: float = None):
+    def potential_energy_elastically_body(
+        k: float = None, x: float = None, E: float = None
+    ):
         """
         нахождение неизвестной по формуле потенциальной энергии упругодеформированного тела
 
@@ -604,7 +620,9 @@ class Physics:
         :param E: потенциальная энергия упругодеформированного тела
         :return: неизвестную по формуле потенциальной энергии упругодеформированного тела
         """
-        return Physics.__first_multiply_second_in_squared_divide_by_two_equal_third(k,x,E)
+        return Physics.__first_multiply_second_in_squared_divide_by_two_equal_third(
+            k, x, E
+        )
 
     @staticmethod
     def work_force(F: float = None, S: float = None, alpha: float = 0, A: float = None):
@@ -616,9 +634,7 @@ class Physics:
         :param alpha: угол действия силы
         :return: неизвестную по формуле работы силы
         """
-        return Physics.__first_multiply_second_multiply_cos_equal_third(
-            F, S, alpha, A
-        )
+        return Physics.__first_multiply_second_multiply_cos_equal_third(F, S, alpha, A)
 
     # TODO Равномерное движенеи по окружности
     @staticmethod
@@ -667,6 +683,20 @@ class Physics:
         return 2 * pi * ((l / g) ** 0.5)
 
     # TODO Электричество
+    @staticmethod
+    def amperage_definition(q: float = None, t: float = None, I: float = None):
+        return Physics.__first_multiply_second_equal_third(I, t, q)
+
+    @staticmethod
+    def amperage_speed(
+        q0: float = None, n: float = None, V: float = None, S: float = None
+    ):
+        return Physics.__first_multiply_second_multiply_third_equal_fourth(q0, n, V, S)
+
+    @staticmethod
+    def voltage_definition(A: float = None, q: float = None, U: float = None):
+        return Physics.__first_multiply_second_equal_third(U, q, A)
+
     @staticmethod
     def Ohm_law(I: float = None, R: float = None, U: float = None):
         """
